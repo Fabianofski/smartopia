@@ -64,8 +64,9 @@ sensor:
   - platform: standing_desk_sensor
     name: "Height"
     id: "height"
-    unit_of_measurement: "mm"
+    unit_of_measurement: "cm"
 
 uart: 
-  rx_pin: GPIO03 
+  rx_pin: 16 
+  tx_pin: 17
   baud_rate: 9600

@@ -13,10 +13,16 @@ void StandingDeskSensor::update() {
 }
 
 void StandingDeskSensor::loop() {
-  if (available()) {
-    ESP_LOGI(TAG, "AVAILABLE");
-  } else {
-    ESP_LOGI(TAG, "UNAVAILABLE");
+  while (this->available() >= 9) {
+    uint8_t header1, header2;
+    this->read_byte(&header1);
+    this->read_byte(&header2);
+    if (header1 == 0xF2 && header2 == 0xF2) {
+      uint8_t payload[7];
+      for (int i = 0; i < 7; i++) this->read_byte(&payload[i]);
+      float height = (payload[2] << 8) | payload[3]; 
+      publish_state(height / 10); 
+    }
   }
 }
 
