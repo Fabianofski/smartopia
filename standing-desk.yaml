@@ -2,10 +2,10 @@ esphome:
   name: standing-desk
   friendly_name: Standing Desk
 
-esp32:
-  board: esp32dev
+esp8266:
+  board: nodemcuv2
   framework:
-    type: esp-idf
+    version: recommended
 
 logger:
 
@@ -40,7 +40,7 @@ switch:
     id: up_btn
     icon: "mdi:arrow-up-bold"
     pin: 
-      number: GPIO18
+      number: GPIO12
       inverted: true
 
   - platform: gpio 
@@ -48,7 +48,7 @@ switch:
     id: down_btn
     icon: "mdi:arrow-down-bold"
     pin: 
-      number: GPIO19
+      number: GPIO13
       inverted: true
 
   - platform: template 
@@ -67,7 +67,7 @@ switch:
     id: mem2_btn
     icon: "mdi:numeric-2-box-outline"
     pin: 
-      number: GPIO21
+      number: GPIO14
       inverted: true
 
   - platform: template 
@@ -88,6 +88,6 @@ sensor:
     unit_of_measurement: "cm"
 
 uart: 
-  rx_pin: 16 
-  tx_pin: 17
+  rx_pin: 01 
+  tx_pin: 03 
   baud_rate: 9600
