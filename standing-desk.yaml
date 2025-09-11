@@ -34,31 +34,52 @@ external_components:
   - source: ./custom_components
     components: [ standing_desk_sensor ]
 
-button:
-  - platform: template 
-    name: Up 
+switch:
+  - platform: gpio 
+    name: Up
     id: up_btn
     icon: "mdi:arrow-up-bold"
+    pin: 
+      number: GPIO18
+      inverted: true
 
-  - platform: template 
+  - platform: gpio 
     name: Down 
     id: down_btn
     icon: "mdi:arrow-down-bold"
+    pin: 
+      number: GPIO19
+      inverted: true
 
   - platform: template 
     name: Mem1 
     id: mem1_btn
     icon: "mdi:numeric-1-box-outline"
+    turn_on_action: 
+      - switch.turn_on: up_btn
+      - switch.turn_on: down_btn
+    turn_off_action: 
+      - switch.turn_off: up_btn
+      - switch.turn_off: down_btn
 
-  - platform: template 
+  - platform: gpio 
     name: Mem2 
     id: mem2_btn
     icon: "mdi:numeric-2-box-outline"
+    pin: 
+      number: GPIO21
+      inverted: true
 
   - platform: template 
     name: Mem3 
     id: mem3_btn
     icon: "mdi:numeric-3-box-outline"
+    turn_on_action: 
+      - switch.turn_on: mem2_btn
+      - switch.turn_on: down_btn
+    turn_off_action: 
+      - switch.turn_off: mem2_btn
+      - switch.turn_off: down_btn
 
 sensor:
   - platform: standing_desk_sensor
