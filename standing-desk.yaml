@@ -88,6 +88,6 @@ sensor:
     unit_of_measurement: "cm"
 
 uart: 
-  rx_pin: 01 
-  tx_pin: 03 
+  rx_pin: D9 
+  tx_pin: D10 
   baud_rate: 9600
