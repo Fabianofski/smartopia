@@ -40,7 +40,7 @@ switch:
     id: up_btn
     icon: "mdi:arrow-up-bold"
     pin: 
-      number: GPIO12
+      number: D7 
       inverted: true
 
   - platform: gpio 
@@ -48,7 +48,7 @@ switch:
     id: down_btn
     icon: "mdi:arrow-down-bold"
     pin: 
-      number: GPIO13
+      number: D6 
       inverted: true
 
   - platform: template 
@@ -67,7 +67,7 @@ switch:
     id: mem2_btn
     icon: "mdi:numeric-2-box-outline"
     pin: 
-      number: GPIO14
+      number: D5 
       inverted: true
 
   - platform: template 
