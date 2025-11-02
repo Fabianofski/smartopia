@@ -1,0 +1,86 @@
+esphome:
+  name: standing-time-visualizer
+  friendly_name: Standing Time Visualizer
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino 
+
+logger:
+
+api:
+  encryption:
+    key: !secret api_password
+
+ota:
+  - platform: esphome
+    password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  ap:
+    ssid: "Standing Time Visualizer"
+    password: !secret fallback_password
+
+  manual_ip:
+    static_ip: 192.168.178.54
+    gateway: 192.168.178.1
+    subnet: 255.255.255.0
+
+sensor:
+  - platform: homeassistant
+    id: display_time
+    entity_id: sensor.standing_time
+
+interval:
+  - interval: 10s
+    then:
+      - lambda: |-
+          static int segA = 12;
+          static int segB = 32;
+          static int segC = 18;
+          static int segD = 16;
+          static int segE = 13;
+          static int segF = 14;
+          static int segG = 19;
+          static int segP = 17;
+
+          static int digit1 = 27;
+          static int digit2 = 26;
+          static int digit3 = 25;
+          static int digit4 = 33;
+
+          static int digits[4] = {digit1, digit2, digit3, digit4};
+          static int segs[8] = {segA, segB, segC, segD, segE, segF, segG, segP};
+          for (int i=0;i<8;i++) pinMode(segs[i], OUTPUT);
+          for (int i=0;i<4;i++) pinMode(digits[i], OUTPUT);
+
+          static byte nums[10][8] = {
+            {0,0,0,0,0,0,1,1},
+            {1,0,0,1,1,1,1,1},
+            {0,0,1,0,0,1,0,1},
+            {0,0,0,0,1,1,0,1},
+            {1,0,0,1,1,0,0,1},
+            {0,1,0,0,1,0,0,1},
+            {0,1,0,0,0,0,0,1},
+            {0,0,0,1,1,1,1,1},
+            {0,0,0,0,0,0,0,1},
+            {0,0,0,0,1,0,0,1}
+          };
+
+          int digits_to_show[4] = {
+            0,
+            1,
+            2,
+            3 
+          };
+
+          for (int i = 0; i < 4; i++) {
+            for (int s=0;s<4;s++) digitalWrite(digits[s], LOW);
+            digitalWrite(digits[i], HIGH);
+            for (int s = 0; s < 8; s++) digitalWrite(segs[s], nums[digits_to_show[i]][s]);
+            delay(5);
+          }
