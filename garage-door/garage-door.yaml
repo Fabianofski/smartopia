@@ -1,0 +1,74 @@
+esphome:
+  name: garage-door
+  friendly_name: Garage Door
+
+esp8266:
+  board: nodemcuv2
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "0dfjrik/ON8QuCF7iDR2hFOQRRQxzu+LlPUyVicYbkI="
+
+ota:
+  - platform: esphome
+    password: "8291cfadf1d27f8cd18ce9366d5d4f62"
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Garage-Door Fallback Hotspot"
+    password: "QrKGDbYcCfiZ"
+
+output:
+  - platform: gpio
+    pin: D6
+    id: out_1
+    inverted: true
+
+  - platform: gpio
+    pin: D7
+    id: out_2
+    inverted: true
+
+  - platform: gpio
+    pin: D2
+    id: out_3
+    inverted: true
+
+  - platform: gpio
+    pin: D1
+    id: out_4
+    inverted: true
+
+
+button:
+  - platform: output
+    name: Button 1
+    icon: "mdi:numeric-1-box-outline"
+    output: out_1
+    duration: 1000ms
+
+  - platform: output
+    name: Button 2
+    icon: "mdi:numeric-2-box-outline"
+    output: out_2
+    duration: 1000ms
+
+  - platform: output
+    name: Button 3
+    icon: "mdi:numeric-3-box-outline"
+    output: out_3
+    duration: 1000ms
+
+  - platform: output
+    name: Button 4
+    icon: "mdi:numeric-4-box-outline"
+    output: out_4
+    duration: 1000ms
